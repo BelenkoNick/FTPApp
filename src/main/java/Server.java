@@ -18,34 +18,23 @@ public class Server {
         FtpServerFactory serverFactory = new FtpServerFactory();
 
         ListenerFactory factory = new ListenerFactory();
-// Установить порт прослушивания
+
         factory.setPort(2121);
 
-// Заменим прослушиватель по умолчанию
         serverFactory.addListener("default", factory.createListener());
 
-// имя пользователя
         BaseUser user = new BaseUser();
         user.setName("admin");
-// пароль Если вы не установили пароль, вы являетесь анонимным пользователем
         user.setPassword("12345");
-// домашний каталог пользователя
+
         user.setHomeDirectory(serverPath);
 
         List<Authority> authorities = new ArrayList<Authority>();
-// увеличить разрешение на запись
+
         authorities.add(new WritePermission());
         user.setAuthorities(authorities);
 
-// Добавить пользователя
         serverFactory.getUserManager().save(user);
-
-        /**
-         Вы также можете использовать файлы конфигурации для управления пользователями
-         */
-//      PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-//      userManagerFactory.setFile(new File("users.properties"));
-//      serverFactory.setUserManager(userManagerFactory.createUserManager());
 
         FtpServer server = serverFactory.createServer();
         server.start();

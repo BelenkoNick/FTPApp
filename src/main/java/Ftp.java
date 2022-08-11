@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.Scanner;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
 
 public class Ftp {
 
@@ -36,7 +35,7 @@ public class Ftp {
             while (isOpen) {
                 JSONWorker.read();
 
-                System.out.println("Please input a command:\n" +
+                System.out.println("\nPlease input a command:\n" +
                         "1 - Get students list\n" +
                         "2 - Find student by id\n" +
                         "3 - Add new student\n" +
@@ -50,15 +49,16 @@ public class Ftp {
                         JSONWorker.list();
                         break;
                     case(2):
-                        JSONWorker.list();
+                        JSONWorker.search();
                         break;
                     case(3):
                         JSONWorker.createStudent();
                         break;
                     case(4):
-                        JSONWorker.list();
+                        JSONWorker.delete();
                         break;
                     case(5):
+                        upload(ftpClient, localFile);
                         isOpen = false;
                 }
             }
@@ -114,16 +114,16 @@ public class Ftp {
     public static void download(FTPClient ftpClient, String targetFile) throws IOException {
         //downloads file from FTPServer using FileOutputStream
 
-            File localFile = new File("F:/FTPLocal/" + targetFile);
-            FileOutputStream outputStream = new FileOutputStream(localFile);
+        File localFile = new File("F:/FTPLocal/" + targetFile);
+        FileOutputStream outputStream = new FileOutputStream(localFile);
 
-            System.out.println("Start downloading " + targetFile + " file");
-            boolean done = ftpClient.retrieveFile("/" + targetFile, outputStream);
-            outputStream.close();
-            if (done) {
-                System.out.println(targetFile + " is downloaded successfully.");
-            } else {
-                System.out.println(targetFile + " is not downloaded");
+        System.out.println("Start downloading " + targetFile + " file");
+        boolean done = ftpClient.retrieveFile("/" + targetFile, outputStream);
+        outputStream.close();
+        if (done) {
+            System.out.println(targetFile + " is downloaded successfully.");
+        } else {
+            System.out.println(targetFile + " is not downloaded");
         }
     }
 }
