@@ -46,10 +46,9 @@ public class JSONWorker {
 
     // stub for now
     public static void createStudent() {
-        //int id = students.students.get(students.students.size() - 1).id + 1;
+        int id = list.students.get(list.students.size() - 1).getId() + 1;
         System.out.println("Please input student's Name:");
-        list.students.add(new Student(5, scn.nextLine()));
-        System.out.println(list.students.get(list.students.size() - 1));
+        list.students.add(new Student(id, scn.nextLine()));
         write();
 
     }
