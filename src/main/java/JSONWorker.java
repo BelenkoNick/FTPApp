@@ -41,7 +41,12 @@ public class JSONWorker {
     public static void createStudent() {
         int id = list.students.get(list.students.size() - 1).getId() + 1;
         System.out.println("Please input student's Name:");
-        list.students.add( new Student(id, scn.nextLine()));
+        String name = scn.nextLine();
+        while(name.equals("")) {
+            System.out.println("Name cannot be empty!\nInput correct name:");
+            name = scn.nextLine();
+        }
+        list.students.add( new Student(id, name));
         write();
 
     }
@@ -49,7 +54,7 @@ public class JSONWorker {
     public static void search() {
         System.out.println("Please input student id:");
         int id = scn.nextInt();
-
+        scn.nextLine();
         for (int i = 0; i < list.students.size(); i++) {
             if(list.students.get(i).getId() == id) {
                 System.out.println(list.students.get(i));
@@ -62,10 +67,11 @@ public class JSONWorker {
     public static void delete() {
         System.out.println("Please input student id:");
         int id = scn.nextInt();
+        scn.nextLine();
         for (int i = 0; i < list.students.size(); i++) {
-            if (list.students.get(i).getId() == id && id <= list.students.size()) {
+            if (list.students.get(i).getId() == id) {
+                System.out.println("Student " + list.students.get(i) + " removed!");
                 list.students.remove(i);
-                System.out.println("Student removed!");
                 write();
                 return;
             }
@@ -75,6 +81,7 @@ public class JSONWorker {
 
     public static void list() {
         // compact print
+        System.out.println("Id: Name:");
         for (int i = 0; i < list.students.size(); i++) {
             System.out.println(list.students.get(i));
         }
