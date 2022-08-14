@@ -1,3 +1,5 @@
+package com.ftpserver;
+
 import java.util.ArrayList;
 
 public class Student {

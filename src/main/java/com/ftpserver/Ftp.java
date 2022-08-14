@@ -1,7 +1,11 @@
+package com.ftpserver;
+
 import java.io.*;
 import java.util.Scanner;
 
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.ftpserver.FtpServer;
+import org.apache.ftpserver.ftplet.FtpException;
 
 public class Ftp {
 
@@ -17,13 +21,15 @@ public class Ftp {
     static Scanner scn = new Scanner(System.in);
 
     public static void main(String[] args)  {
-        int choice = 0;
+        int choice;
         FTPClient ftpClient = null;
 
         // creates local file
         File localFile = new File(localPath + "students.json");
 
         try {
+            //server starts
+            FtpServer server = Server.start();
             //loop for logging
             while (ftpClient == null) {
                 //greetings();
@@ -60,15 +66,18 @@ public class Ftp {
                     case(5):
                         upload(ftpClient, localFile);
                         isOpen = false;
+                        Server.stop(server);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (FtpException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public static FTPClient createClient() throws IOException {
-        // creates client for FTP Server
+        // creates client for FTP com.ftpserver.Server
         FTPClient ftpClient = new FTPClient();
         ftpClient.connect(serverName, port);
         boolean done = ftpClient.login(username, password);

@@ -1,3 +1,5 @@
+package com.ftpserver;
+
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.Authority;
@@ -13,7 +15,7 @@ public class Server {
 
     public static String serverPath = "E:/FTPServer";
 
-    public static void main(String[] args) throws FtpException {
+    public static FtpServer start() throws FtpException {
         org.apache.log4j.BasicConfigurator.configure();
         FtpServerFactory serverFactory = new FtpServerFactory();
 
@@ -29,7 +31,7 @@ public class Server {
 
         user.setHomeDirectory(serverPath);
 
-        List<Authority> authorities = new ArrayList<Authority>();
+        List<Authority> authorities = new ArrayList<>();
 
         authorities.add(new WritePermission());
         user.setAuthorities(authorities);
@@ -38,5 +40,10 @@ public class Server {
 
         FtpServer server = serverFactory.createServer();
         server.start();
+        return server;
+    }
+
+    public static void stop(FtpServer server) {
+        server.stop();
     }
 }
