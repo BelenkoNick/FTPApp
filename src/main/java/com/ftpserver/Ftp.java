@@ -77,7 +77,7 @@ public class Ftp {
     }
 
     public static FTPClient createClient() throws IOException {
-        // creates client for FTP com.ftpserver.Server
+        // creates client for FTP Server
         FTPClient ftpClient = new FTPClient();
         ftpClient.connect(serverName, port);
         boolean done = ftpClient.login(username, password);
