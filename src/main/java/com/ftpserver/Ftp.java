@@ -32,7 +32,7 @@ public class Ftp {
             FtpServer server = Server.start();
             //loop for logging
             while (ftpClient == null) {
-                //greetings();
+                greetings();
                 // creates client
                 ftpClient = createClient();
             }
