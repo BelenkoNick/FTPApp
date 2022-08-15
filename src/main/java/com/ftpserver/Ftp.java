@@ -9,12 +9,12 @@ import org.apache.ftpserver.ftplet.FtpException;
 
 public class Ftp {
 
-    static String localPath = "F:/FTPLocal/";
+    static String localPath = "F:/FTPLocal/"; // or any local folder
 
-    static String serverName = "localhost";
-    static int port = 2121;
-    static String username = "admin";
-    static String password = "12345";
+    static String serverName; //localhost
+    static int port; //2121
+    static String username; //admin
+    static String password; //12345
 
     static boolean isOpen = true;
 
@@ -28,14 +28,15 @@ public class Ftp {
         File localFile = new File(localPath + "students.json");
 
         try {
-            //server starts
+            // server starts
             FtpServer server = Server.start();
-            //loop for logging
+            // loop for logging
             while (ftpClient == null) {
                 greetings();
                 // creates client
                 ftpClient = createClient();
             }
+            // downloads a JSON from server
             download(ftpClient, localFile.getName());
             // basic loop of the app
             while (isOpen) {
@@ -76,8 +77,9 @@ public class Ftp {
         }
     }
 
+    // creates client for FTP Server
     public static FTPClient createClient() throws IOException {
-        // creates client for FTP Server
+
         FTPClient ftpClient = new FTPClient();
         ftpClient.connect(serverName, port);
         boolean done = ftpClient.login(username, password);
@@ -88,11 +90,15 @@ public class Ftp {
                     "\nRebooting into program...");
             return null;
         }
+
+        // this could be toggled on and off, client works both ways
         ftpClient.enterLocalPassiveMode();
         return ftpClient;
     }
 
+    // method for logging into server
     public static void  greetings() {
+
         System.out.println("\nHello and welcome to FTPServer App for students!");
         System.out.println("Please input server address:");
         serverName = scn.nextLine();
@@ -121,7 +127,7 @@ public class Ftp {
     }
 
     public static void download(FTPClient ftpClient, String targetFile) throws IOException {
-        //downloads file from FTPServer using FileOutputStream
+        // downloads file from FTPServer using FileOutputStream
 
         File localFile = new File("F:/FTPLocal/" + targetFile);
         FileOutputStream outputStream = new FileOutputStream(localFile);
