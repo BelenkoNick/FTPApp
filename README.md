@@ -15,7 +15,7 @@ by id and names. App can write and read JSON from server.\
 Basic folder for FTP Server and FTP Local are:\
 ***E:/FTPServer** and **F:/FTPLocal*** \
 However, this could be changed in code.
-
+___
 ### Instructions
 
 App is compiled and build using gradle. All external libs are already \
