@@ -1,6 +1,7 @@
 package com.ftpserver;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -114,7 +115,7 @@ public class Ftp {
     public static void upload(FTPClient ftpClient, File localFile) throws IOException {
         // uploads local file to FTPServer using an InputStream
 
-        InputStream inputStream = new FileInputStream(localFile);
+        InputStream inputStream = Files.newInputStream(localFile.toPath());
 
         System.out.println("Start uploading " + localFile.getName() + " file");
         boolean done = ftpClient.storeFile(localFile.getName(), inputStream);
